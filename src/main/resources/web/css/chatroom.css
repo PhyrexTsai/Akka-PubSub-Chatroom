@@ -1,0 +1,140 @@
+@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+body
+{
+	background: #f2f2f2;
+	color: #797979;
+	font-family: Ruda,sans-serif;
+	font-size: 13px;
+	margin: 0!important;
+	padding: 0!important;
+}
+a,a:focus,a:hover
+{
+	outline: 0;
+	text-decoration: none;
+}
+::selection
+{
+	background: #68dff0;
+	color: #fff;
+}
+::-moz-selection
+{
+	background: #68dff0;
+	color: #fff;
+}
+#container
+{
+	height: 100%;
+	width: 100%;
+}
+.chat-room-head
+{
+	background: #68dff0;
+	color: #FFF;
+	min-height: 70px;
+	padding: 15px;
+}
+.chat-room-head h3
+{
+	display: inline-block;
+	font-weight: 100;
+	letter-spacing: 1px;
+	margin: 5px 0 0;
+}
+.chat-room-head-space, .chat-room-head-member
+{
+	display: inline-block;
+}
+.chat-room-head-space
+{
+	width : 80%;
+}
+.chat-room-head-member
+{
+	width : 19%;
+	text-align : center;
+}
+.chat-space, .chat-member
+{
+    background-color : #eeeeee;
+	display: inline-block;
+	height: 500px;
+	overflow: auto;
+}
+.chat-space
+{
+	width : 80%;
+}
+.chat-member
+{
+	width : 19%;
+}
+.group-rom
+{
+	border-bottom: 1px solid #eaebee;
+	float: left;
+	width: 100%;
+}
+.group-rom .first-part,.group-rom .second-part,.group-rom .third-part,.group-rom .info-part,.group-rom .member-part
+{
+	float: left;
+	padding: 15px;
+}
+.group-rom .member-part
+{
+    background: #e0e0e0;
+    width: 100%;
+    text-align: left;
+}
+.group-rom .info-part
+{
+    background: #fbfbff;
+    width: 100%;
+    text-align: center;
+}
+.group-rom .first-part
+{
+	width: 25%;
+	text-align: left;
+}
+.group-rom .first-part.odd
+{
+	background: #f7f8fa;
+	color: #6a6a6a;
+	font-weight: 600;
+}
+.group-rom .first-part.even
+{
+	background: #ffffff;
+	color: #5c5c5c;
+	font-weight: 600;
+}
+.group-rom .second-part
+{
+	width: 60%;
+	text-align: left;
+}
+.group-rom .third-part
+{
+	color: #d4d3d3;
+	width: 15%;
+}
+.chat-txt
+{
+	float: left;
+	margin-right: 5px;
+	width: 90%;
+}
+.btn-theme
+{
+	background-color: #68dff0;
+	border-color: #48bcb4;
+	color: #fff;
+}
+.btn-theme.active,.btn-theme:active,.btn-theme:focus,.btn-theme:hover,.open .dropdown-toggle.btn-theme
+{
+	background-color: #48bcb4;
+	border-color: #48bcb4;
+	color: #fff;
+}
