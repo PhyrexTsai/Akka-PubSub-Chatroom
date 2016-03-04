@@ -12,9 +12,6 @@ import events.Events
   */
 trait ChatHandler {
   def chatFlow(topic : String, sender : String) : Flow[String, Events.Message, Any]
-
-  // 可以建置 robot 用來 boardcast 一些資訊
-  def boardcastMessage(message : Events.ChatMessage) : Unit
 }
 
 object ChatHandler {
@@ -35,24 +32,20 @@ object ChatHandler {
           })
           .to(Sink.actorRef[ChatEvent](chatActor, remove))
 
-        val out = Source.actorRef[Events.ChatMessage](1, OverflowStrategy.fail)
+        val out = Source.actorRef[Events.Message](1, OverflowStrategy.fail)
           .mapMaterializedValue((ref) => {
             chatActor ! Join(sender, ref)
           })
 
         Flow.fromSinkAndSource(in, out)
       }
-
-      def boardcastMessage(message : Events.ChatMessage) : Unit = {
-        //chatActor ! message
-      }
     }
   }
 
   sealed trait ChatEvent
-  case class Join(name: String, subscriber: ActorRef) extends ChatEvent
-  case class Left(name: String) extends ChatEvent
-  case class ReceivedMessage(sender: String, message : String) extends ChatEvent {
-    def toChatMessage: Events.ChatMessage = Events.ChatMessage(sender, message)
+  case class Join(name : String, subscriber : ActorRef) extends ChatEvent
+  case class Left(name : String) extends ChatEvent
+  case class ReceivedMessage(sender : String, message : String) extends ChatEvent {
+    def toChatMessage : Events.ChatMessage = Events.ChatMessage(sender, message)
   }
 }

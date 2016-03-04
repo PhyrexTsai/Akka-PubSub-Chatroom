@@ -1,6 +1,6 @@
 package route
 
-import akka.http.scaladsl.model.ws.{TextMessage, Message}
+import akka.http.scaladsl.model.ws.{BinaryMessage, TextMessage, Message}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server._
 import akka.stream.scaladsl.Flow
@@ -14,8 +14,7 @@ object ChatService {
   def route(chatroom: ChatHandler) : Route = path("chat") {
     parameters('name, 'topic) { (name, topic) => {
       handleWebSocketMessages(websocketChatFlow(chatroom, topic, name))
-    }
-    }
+    }}
   }
 
   def websocketChatFlow(chatroom : ChatHandler, topic : String, sender: String): Flow[Message, Message, Any] =

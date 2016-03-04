@@ -18,13 +18,6 @@ import scala.concurrent.duration.Duration
   */
 class WebService(implicit fm: Materializer, system: ActorSystem) extends Directives {
   val chatroom = ChatHandler.create(system)
-  val simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm")
-  TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
-  // 這邊使用 system.dispather 來實作 implicit => ExcutionContextExcutor
-  import system.dispatcher
-  system.scheduler.schedule(Duration.create(60, SECONDS), Duration.create(60, SECONDS)) {
-    chatroom.boardcastMessage(Events.ChatMessage(sender = "SystemTicker", s""))
-  }
 
   def route = MainService.route ~ ChatService.route(chatroom) ~ getFromResourceDirectory("web")
 

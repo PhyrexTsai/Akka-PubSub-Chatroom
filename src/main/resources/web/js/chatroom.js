@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $.urlParam = function(name){
+    var urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
         if (results==null){
            return null;
@@ -21,9 +21,9 @@ $(document).ready(function(){
         }
         var ws = protocol + window.location.hostname + port;
         ws += "/chat?name=";
-        ws += $.urlParam("name");
+        ws += urlParam("name");
         ws += "&topic=";
-        ws += $.urlParam("topic");
+        ws += urlParam("topic");
         $("#chat-room-name").text($.urlParam("topic"));
         console.log(ws);
         return ws;
