@@ -63,11 +63,13 @@ $(document).ready(function(){
                 var snap = $("<div></div>").addClass("snap-part").text("限時訊息");
                 var sender = $("<div></div>").addClass("first-part odd").html(data.sender);
                 var message = $("<div></div>").addClass("second-part").append(snap);
-                snap.bind("click", {"msg" : data.message, "node" : group}, function(){
-                    $(this).text(data.message);
-                    setTimeout(function(){group.remove();}, 10000);
-                });
                 var time = $("<div></div>").addClass("third-part").text("");
+                snap.bind("click", {"msg" : data.message, "node" : group, "tick" : time}, function(){
+                    $(this).text(event.data.msg);
+                    $(this).attr("timeout", "10");
+                    setInterval(function(){event.tick.text(parseInt($(this).attr("timeout"), 10) - 1)});
+                    setTimeout(function(){event.node.remove();}, 10000);
+                });
                 group.append(sender).append(message).append(time);
             }else{
                 var info = $("<div></div>").addClass("info-part odd").html(data.message);

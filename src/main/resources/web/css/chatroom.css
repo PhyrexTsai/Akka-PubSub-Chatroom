@@ -81,12 +81,17 @@ a,a:focus,a:hover
 	float: left;
 	padding: 15px;
 }
+.group-rom .snap-part
+{
+    cursor : pointer;
+    color : darkred;
+    font-weight : bold;
+}
 .group-rom .member-part
 {
     background: #e0e0e0;
     width: 100%;
     text-align: left;
-    padding-left: 5px;
 }
 .group-rom .info-part
 {
