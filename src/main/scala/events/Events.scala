@@ -8,12 +8,12 @@ import java.util.Date
 object Events {
   sealed trait Message
   case class ChatMessage(sender: String, message: String) extends Message
-  case class Joined(member: String, allMembers: Seq[String]) extends Message
-  case class Leaved(member: String, allMembers: Seq[String]) extends Message
+  case class Joined(member: String, allMembers: String) extends Message
+  case class Leaved(member: String, allMembers: String) extends Message
 
   // 把 Events.Message 轉成字串輸出
   def parse(msg : Events.Message) : String = {
-    //println(msg.toString)
+    println(msg.toString)
     val messageTypeTick = "^([A-Z]\\w+)".r
     var messageType = ""
     var sender = ""

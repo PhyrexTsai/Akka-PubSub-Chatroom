@@ -21,11 +21,8 @@ class ChatClient(topic : String) extends Actor {
       context.watch(subscriber)
       subscribers = (topic, name, subscriber)
       mediator ! Subscribe(topic, subscriber)
-
-      RedisService.connection.set(s"$topic-$name", subscriber.toString)
-      println("redis : " + RedisService.connection.get(topic + "-" + name))
-
-      boardcast(Events.Joined(name, /*members*/null))
+      RedisService.connection.set(s"$topic-$name", s"$name")
+      boardcast(Events.Joined(name, RedisService.connection.keys(s"$topic-*").toString))
     }
     case msg : ReceivedMessage => {
       boardcast(msg.toChatMessage)
@@ -37,8 +34,8 @@ class ChatClient(topic : String) extends Actor {
       val entry @ (topic, username, ref) = subscribers
       ref ! Status.Success(Unit)
       mediator ! Unsubscribe(topic, self)
-      //redis.del(s"$topic-$username")
-      boardcast(Events.Leaved(name, /*members*/null))
+      RedisService.connection.del(s"$topic-$name")
+      boardcast(Events.Leaved(name, RedisService.connection.keys(s"$topic-*").toString))
     }
     case Terminated(subscriber) => {
       mediator ! Unsubscribe(topic, subscriber)
