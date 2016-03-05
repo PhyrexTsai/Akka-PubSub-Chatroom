@@ -1,7 +1,7 @@
 package chat
 
 import akka.actor.{Terminated, Status, ActorRef, Actor}
-import akka.cluster.pubsub.{DistributedPubSubMediator, DistributedPubSub}
+import akka.cluster.pubsub.DistributedPubSub
 import akka.cluster.pubsub.DistributedPubSubMediator._
 import chat.ChatHandler._
 import events.Events

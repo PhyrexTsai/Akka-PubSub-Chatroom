@@ -2,7 +2,6 @@ import akka.actor.ActorSystem
 import akka.cluster.Cluster
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import redis.RedisService
 import webservice.WebService
 
 import scala.util.{Failure, Success}

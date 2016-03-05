@@ -1,8 +1,6 @@
 package chat
 
 import akka.actor.{ActorRef, Props, ActorSystem}
-import akka.cluster.pubsub.DistributedPubSub
-import akka.cluster.pubsub.DistributedPubSubMediator.{Publish, Subscribe}
 import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Source, Sink, Flow}
 import events.Events
