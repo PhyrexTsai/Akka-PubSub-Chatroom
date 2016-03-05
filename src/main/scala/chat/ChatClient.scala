@@ -11,7 +11,6 @@ import redis.RedisService
   */
 class ChatClient(topic : String) extends Actor {
 
-
   val mediator = DistributedPubSub(context.system).mediator;
 
   var subscribers : (String, String, ActorRef) = null

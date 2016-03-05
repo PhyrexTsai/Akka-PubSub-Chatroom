@@ -97,7 +97,7 @@ $(document).ready(function(){
         $.each(members, function(index, value){
             var group = $("<div></div>").addClass("group-rom");
             var member = $("<div></div>").addClass("member-part");
-            var icon = $("<span></span>").addClass("glyphicon glyphicon-user");
+            var icon = $("<span></span>").addClass("glyphicon glyphicon-user member-icon");
             member.append(icon);
             member.append(value.substring( (urlParam("topic").length + 1) ));
             group.append(member);
