@@ -99,7 +99,7 @@ $(document).ready(function(){
             var member = $("<div></div>").addClass("member-part");
             var icon = $("<span></span>").addClass("glyphicon glyphicon-user");
             member.append(icon);
-            member.append(" " + value);
+            member.append(value.substring( (urlParam("topic").length + 1) ));
             group.append(member);
             $(".chat-member").append(group);
         });
