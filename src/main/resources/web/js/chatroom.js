@@ -48,7 +48,7 @@ $(document).ready(function(){
     }
 
     var receiveEvent = function(event) {
-        //console.log("##" + event.data);
+        console.log("##" + event.data);
         if(event.data === "") return;
         var data = JSON.parse(event.data);
         var chat = $(".chat-space");
