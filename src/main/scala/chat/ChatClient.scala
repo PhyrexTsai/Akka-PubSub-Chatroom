@@ -22,8 +22,8 @@ class ChatClient(topic : String) extends Actor {
       subscribers = (topic, name, subscriber)
       mediator ! Subscribe(topic, subscriber)
 
-      //Redis.connection.set(s"$topic-$name", subscribers)
-      //println("redis : " + redis.get(topic + "-" + name).getOrElse("none"))
+      RedisService.connection.set(s"$topic-$name", subscriber.toString)
+      println("redis : " + RedisService.connection.get(topic + "-" + name))
 
       boardcast(Events.Joined(name, /*members*/null))
     }
