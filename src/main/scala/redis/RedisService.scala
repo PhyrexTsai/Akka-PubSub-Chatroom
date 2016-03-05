@@ -5,6 +5,7 @@ import org.apache.commons.pool.impl.GenericObjectPool.Config
 import redis.clients.jedis.{Protocol, JedisPool, Jedis}
 
 /**
+  * reference : https://github.com/sclasen/play-extras/blob/master/src/main/scala/com/heroku/play/api/libs/redis/RedisService.scala
   * Created by Phyrex on 2016/3/5.
   */
 object RedisService {
