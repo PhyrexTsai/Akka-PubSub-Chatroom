@@ -1,8 +1,6 @@
 package redis
 
 import java.net.URI
-
-import akka.actor.ActorSystem
 import redis.clients.jedis.Jedis
 
 /**
@@ -10,7 +8,7 @@ import redis.clients.jedis.Jedis
   */
 object RedisService {
   private val redisURI : URI = new URI(System.getenv("REDIS_URL"));
-  private val jedis : Jedis = new Jedis(redisURI.toString)
+  private val jedis : Jedis = new Jedis(redisURI.getHost, redisURI.getPort)
   def connection : Jedis = {
     jedis
   }
