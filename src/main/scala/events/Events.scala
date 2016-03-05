@@ -1,5 +1,7 @@
 package events
 
+import java.util.Date
+
 /**
   * Created by Phyrex on 2016/3/3.
   */
@@ -11,25 +13,36 @@ object Events {
 
   // 把 Events.Message 轉成字串輸出
   def parse(msg : Events.Message) : String = {
-    println(msg.toString)
-    val msgs : Array[String] = msg.toString.split("\\(")
-    var event = "";
-    var message = "";
-    var sender = "";
-    var members = "";
-    if(msgs.length > 0){
-      event = msgs.apply(0)
-      sender = msgs.apply(1).split(",").apply(0)
-      message = msgs.apply(1).split(",").apply(1)
+    //println(msg.toString)
+    val messageTypeTick = "^([A-Z]\\w+)".r
+    var messageType = ""
+    var sender = ""
+    var message = ""
+    messageTypeTick findFirstIn msg.toString match {
+      case Some(messageTypeTick(inside)) => messageType = inside //println(inside)
+      case _ => println("nothing")
     }
-    if(msgs.length > 2){
-      members = ", \"member\" : [\"" + msgs.apply(2).replace(")", "").replace(", ", "\",\"") + "\"]"
+    val s1 = msg.toString.substring(messageType.length)
+
+    val senderTick = "(\\(\\w+,)".r
+    var len = 0
+    senderTick findFirstIn s1 match {
+      case Some(senderTick(inside)) => {
+        len = inside.length
+        sender = inside.substring(1, inside.length - 1)
+      }
+      case _ => println("nothing")
     }
-    event match {
-      case "Joined" => message = s"$sender 加入了"
-      case "Leaved" => message = s"$sender 離開了"
-      case "ChatMessage" => message = message.substring(0, message.length - 1)//.replace("\n", "<br/>")
+    val messageJson = s1.substring(len, s1.length - 1)
+    val time = (new Date()).getTime()
+    messageType match {
+      case "Joined" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 加入了\", \"messageType\" : \"Joined\", \"time\" : " + time + "}"
+      case "Leaved" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 離開了\", \"messageType\" : \"Leaved\", \"time\" : " + time + "}"
+      case "ChatMessage" => message = messageJson
+      case "SnapMessage" => message = messageJson
+      case _ => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"\", \"messageType\" : \"ChatMessage\", \"time\" : " + time + "}"
     }
-    "{\"sender\" : \"" + sender + "\", \"message\" : \"" + message + "\", \"type\" : \"" + event + "\"" + members + "}"
+    println("return : " + message)
+    message
   }
 }

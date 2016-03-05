@@ -114,6 +114,7 @@ a,a:focus,a:hover
 {
 	width: 60%;
 	text-align: left;
+	word-break: break-word;
 }
 .group-rom .third-part
 {
@@ -137,4 +138,19 @@ a,a:focus,a:hover
 	background-color: #48bcb4;
 	border-color: #48bcb4;
 	color: #fff;
+}
+.icon-large {
+    font-size : 24px;
+}
+.type-icon {
+    cursor : pointer;
+    padding : 5px 20px 5px 20px;
+}
+.type-icon.active {
+    background-color : #cccccc;
+}
+.chat-method {
+    text-align : left;
+    background-color : #eeeeee;
+    padding : 2px;
 }

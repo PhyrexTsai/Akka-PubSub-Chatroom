@@ -1,0 +1,5 @@
+{
+  "name": "Akka-PubSub-Chatroom",
+  "description": "Akka Publish/Subscribe Chatroom deployed to Heroku.",
+  "image": "heroku/scala"
+}

@@ -12,7 +12,8 @@ libraryDependencies ++=
   Seq(
     "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
-    "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion
+    "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
+    "redis.clients" % "jedis" % "2.0.0"
   )
 
 libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-compiler" % _ )

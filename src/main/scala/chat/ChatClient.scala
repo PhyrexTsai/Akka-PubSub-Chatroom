@@ -5,11 +5,13 @@ import akka.cluster.pubsub.{DistributedPubSubMediator, DistributedPubSub}
 import akka.cluster.pubsub.DistributedPubSubMediator._
 import chat.ChatHandler._
 import events.Events
-
+import redis.RedisService
 /**
   * Created by Phyrex on 2016/3/3.
   */
 class ChatClient(topic : String) extends Actor {
+
+
   val mediator = DistributedPubSub(context.system).mediator;
 
   var subscribers : (String, String, ActorRef) = null
@@ -19,6 +21,10 @@ class ChatClient(topic : String) extends Actor {
       context.watch(subscriber)
       subscribers = (topic, name, subscriber)
       mediator ! Subscribe(topic, subscriber)
+
+      //Redis.connection.set(s"$topic-$name", subscribers)
+      //println("redis : " + redis.get(topic + "-" + name).getOrElse("none"))
+
       boardcast(Events.Joined(name, /*members*/null))
     }
     case msg : ReceivedMessage => {
@@ -31,6 +37,7 @@ class ChatClient(topic : String) extends Actor {
       val entry @ (topic, username, ref) = subscribers
       ref ! Status.Success(Unit)
       mediator ! Unsubscribe(topic, self)
+      //redis.del(s"$topic-$username")
       boardcast(Events.Leaved(name, /*members*/null))
     }
     case Terminated(subscriber) => {

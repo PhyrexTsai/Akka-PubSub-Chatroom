@@ -33,12 +33,16 @@
                     <div class="chat-space"></div>
                     <div class="chat-member"></div>
                 </div>
-                <footer>
+                <div>
+                    <div class="chat-method">
+                        <span class="glyphicon glyphicon-comment icon-large type-icon active" id="chatButton" messagetype="ChatMessage"></span>
+                        <span class="glyphicon glyphicon-time icon-large type-icon" id="snapButton" messagetype="SnapMessage"></span>
+                    </div>
                     <div class="chat-txt">
-                        <input type="text" id="send" class="form-control" placeholder="say something">
+                        <input type="text" id="send" class="form-control" messagetype="ChatMessage" placeholder="say something">
                     </div>
                     <button class="btn btn-theme" id="sendButton">Send</button>
-                </footer>
+                </div>
             </aside>
         </div>
     </center>
