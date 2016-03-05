@@ -124,7 +124,7 @@ a,a:focus,a:hover
 }
 .group-rom .third-part
 {
-	color: #d4d3d3;
+	color: grey;
 	width: 15%;
 }
 .chat-txt
@@ -132,6 +132,7 @@ a,a:focus,a:hover
 	float: left;
 	margin-right: 5px;
 	width: 90%;
+	padding-left: 2px;
 }
 .btn-theme
 {

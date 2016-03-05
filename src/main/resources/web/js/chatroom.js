@@ -65,10 +65,15 @@ $(document).ready(function(){
                 var message = $("<div></div>").addClass("second-part").append(snap);
                 var time = $("<div></div>").addClass("third-part").text("");
                 snap.bind("click", {"msg" : data.message, "node" : group, "tick" : time}, function(){
-                    $(this).text(event.data.msg);
-                    $(this).attr("timeout", "10");
-                    setInterval(function(){event.tick.text(parseInt($(this).attr("timeout"), 10) - 1)});
-                    setTimeout(function(){event.node.remove();}, 10000);
+                    var textBox = $(this);
+                    textBox.text(data.message);
+                    textBox.attr("timeout", "10");
+                    time.text(textBox.attr("timeout") + " s");
+                    setInterval(function(){
+                        textBox.attr("timeout", (parseInt(textBox.attr("timeout"), 10) - 1) + " s")
+                        time.text(textBox.attr("timeout"));
+                    }, 1000);
+                    setTimeout(function(){group.remove();}, 10000);
                 });
                 group.append(sender).append(message).append(time);
             }else{

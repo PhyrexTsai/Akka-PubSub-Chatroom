@@ -9,7 +9,7 @@ import redis.clients.jedis.{Protocol, JedisPool, Jedis}
   * Created by Phyrex on 2016/3/5.
   */
 object RedisService {
-  private val redisURI : URI = new URI(System.getenv("REDIS_URL"))
+  private val redisURI : URI = new URI("localhost")//new URI(System.getenv("REDIS_URL"))
   private val redisPassword: Option[String] = Option(redisURI.getUserInfo).map(_.split(":").apply(1))
   private val jedis : Jedis = new Jedis(redisURI.getHost, redisURI.getPort)
   def connection : Jedis = {
