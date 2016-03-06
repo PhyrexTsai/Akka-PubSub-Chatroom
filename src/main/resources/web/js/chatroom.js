@@ -129,6 +129,7 @@ $(document).ready(function(){
     $("#chatButton").click(function(){
         $("#chatButton").addClass("active");
         $("#snapButton").removeClass("active");
+        $(".chat-txt").removeClass("has-error");
         $("#send").attr("messagetype", $(this).attr("messagetype"));
         $("#send").attr("placeholder", "say something");
         $("#send").focus();
@@ -136,6 +137,7 @@ $(document).ready(function(){
     $("#snapButton").click(function(){
         $("#snapButton").addClass("active");
         $("#chatButton").removeClass("active");
+        $(".chat-txt").addClass("has-error");
         $("#send").attr("messagetype", $(this).attr("messagetype"));
         $("#send").attr("placeholder", "limit message");
         $("#send").focus();
