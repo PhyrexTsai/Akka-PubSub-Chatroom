@@ -36,12 +36,11 @@ object Events {
     }
 
     val messageJson = s1.substring(len, s1.length - 1)
-    val systemJson = s1.substring(len, s1.length)
     val time = (new Date()).getTime()
 
     messageType match {
-      case "Joined" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 加入了\", \"messageType\" : \"Joined\", \"time\" : " + time + ", \"member\" : " + systemJson + "}"
-      case "Leaved" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 離開了\", \"messageType\" : \"Leaved\", \"time\" : " + time + ", \"member\" : " + systemJson + "}"
+      case "Joined" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 加入了\", \"messageType\" : \"Joined\", \"time\" : " + time + ", \"member\" : " + messageJson + "]}"
+      case "Leaved" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 離開了\", \"messageType\" : \"Leaved\", \"time\" : " + time + ", \"member\" : " + messageJson + "]}"
       case "ChatMessage" => message = messageJson
       case "SnapMessage" => message = messageJson
       case _ => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"\", \"messageType\" : \"ChatMessage\", \"time\" : " + time + "}"
