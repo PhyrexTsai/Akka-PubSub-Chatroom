@@ -16,9 +16,7 @@ object ChatService {
       handleWebSocketMessages(websocketChatFlow(chatroom, topic, name))
     }}
   }
-
-  // 這邊使用到 PartialFunction, 包含 collect 與 map
-  // 參考 API : http://www.scala-lang.org/api/current/index.html#scala.PartialFunction
+  
   def websocketChatFlow(chatroom : ChatHandler, topic : String, sender: String): Flow[Message, Message, Any] =
     Flow[Message]
       .collect {
