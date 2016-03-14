@@ -37,7 +37,7 @@ class ChatClient(topic : String) extends Actor {
       mediator ! Unsubscribe(topic, self)
       RedisService.connection.del(s"$topic-$name")
       val members = RedisService.connection.keys(s"$topic-*").toString
-        .replace("[", "[\"").replace("]", "\"").replace(", ", "\", \"")
+        .replace("[", "[\"").replace("]", "\"]").replace(", ", "\", \"")
       boardcast(Events.Leaved(name, members))
     }
     case Terminated(subscriber) => {
