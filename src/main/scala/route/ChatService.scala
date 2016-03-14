@@ -16,7 +16,7 @@ object ChatService {
       handleWebSocketMessages(websocketChatFlow(chatroom, topic, name))
     }}
   }
-  
+
   def websocketChatFlow(chatroom : ChatHandler, topic : String, sender: String): Flow[Message, Message, Any] =
     Flow[Message]
       .collect {
