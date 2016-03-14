@@ -85,7 +85,7 @@ $(document).ready(function(){
                 console.log("height : " + $(this).height());
             });
             var height = $(".first-part").size() * 48;
-            $(".chat-space").animate({ scrollTop: height }, "slow");
+            $(".chat-space").animate({ scrollTop: height }, "fast");
         }
         if(data.member != undefined){
             memberList(data.member);
