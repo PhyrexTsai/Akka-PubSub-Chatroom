@@ -17,7 +17,7 @@ object ChatHandler {
     new ChatHandler {
       // Flow => 1 input, 1 output   Source => 0 input, 1 output    Sink => 1 input, 0 output
       // 這邊使用 chatFlow 來表示使用者收到訊息、登入與登出的整個串流
-      /*def testFlow(topic : String, sender : String) : Flow[String, Events.Message, Any] = {
+      /*def chatFlow(topic : String, sender : String) : Flow[String, Events.Message, Any] = {
         val chatActor = system.actorOf(Props(classOf[ChatClient], topic))
 
         def remove = {
@@ -37,7 +37,6 @@ object ChatHandler {
 
         Flow.fromSinkAndSource(in, out)
       }*/
-
       def chatFlow(topic : String, sender : String) : Flow[String, Events.Message, Any] = {
         val chatActor = system.actorOf(Props(classOf[ChatClient], topic))
 
@@ -56,7 +55,6 @@ object ChatHandler {
           FlowShape(sink.in, source.out)
         })
       }
-
     }
   }
 
