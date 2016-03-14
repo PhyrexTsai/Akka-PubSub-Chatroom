@@ -13,20 +13,20 @@ object Events {
 
   // 把 Events.Message 轉成字串輸出
   def parse(msg : Events.Message) : String = {
-    println(msg.toString)
     val messageTypeTick = "^([A-Z]\\w+)".r
+    val senderTick = "(\\(\\w+,)".r
+    var len = 0
     var messageType = ""
     var sender = ""
     var message = ""
-    var members = ""
+
     messageTypeTick findFirstIn msg.toString match {
-      case Some(messageTypeTick(inside)) => messageType = inside //println(inside)
+      case Some(messageTypeTick(inside)) => messageType = inside
       case _ => println("nothing")
     }
+
     val s1 = msg.toString.substring(messageType.length)
 
-    val senderTick = "(\\(\\w+,)".r
-    var len = 0
     senderTick findFirstIn s1 match {
       case Some(senderTick(inside)) => {
         len = inside.length
@@ -34,16 +34,18 @@ object Events {
       }
       case _ => println("nothing")
     }
+
     val messageJson = s1.substring(len, s1.length - 1)
+    val systemJson = s1.substring(len, s1.length)
     val time = (new Date()).getTime()
+
     messageType match {
-      case "Joined" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 加入了\", \"messageType\" : \"Joined\", \"time\" : " + time + ", \"member\" : " + messageJson + "]}"
-      case "Leaved" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 離開了\", \"messageType\" : \"Leaved\", \"time\" : " + time + ", \"member\" : " + messageJson + "]}"
+      case "Joined" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 加入了\", \"messageType\" : \"Joined\", \"time\" : " + time + ", \"member\" : " + systemJson + "}"
+      case "Leaved" => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"" + sender + " 離開了\", \"messageType\" : \"Leaved\", \"time\" : " + time + ", \"member\" : " + systemJson + "}"
       case "ChatMessage" => message = messageJson
       case "SnapMessage" => message = messageJson
       case _ => message = "{\"sender\" : \"" + sender + "\", \"message\" : \"\", \"messageType\" : \"ChatMessage\", \"time\" : " + time + "}"
     }
-    println("return : " + message)
     message
   }
 }

@@ -14,6 +14,7 @@ import scala.concurrent.duration.Duration
 class WebService(implicit fm: Materializer, system: ActorSystem) extends Directives {
   val chatroom = ChatHandler.create(system)
 
+  // Tilde Combinator  (~) 使用波浪號將多個 route 組成一個
   def route = MainService.route ~ ChatService.route(chatroom) ~ getFromResourceDirectory("web")
 
 }
