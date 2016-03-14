@@ -22,7 +22,7 @@ class ChatClient(topic : String) extends Actor {
       mediator ! Subscribe(topic, subscriber)
       RedisService.connection.set(s"$topic-$name", s"$name")
       val members = RedisService.connection.keys(s"$topic-*").toString
-        .replace("[", "[\"").replace("]", "\"").replace(", ", "\", \"")
+        .replace("[", "[\"").replace("]", "\"]").replace(", ", "\", \"")
       boardcast(Events.Joined(name, members))
     }
     case msg : ReceivedMessage => {
