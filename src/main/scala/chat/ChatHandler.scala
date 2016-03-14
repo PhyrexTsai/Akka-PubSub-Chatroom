@@ -30,7 +30,7 @@ object ChatHandler {
           })
           .to(Sink.actorRef[ChatEvent](chatActor, remove))
 
-        val out = Source.actorRef[Events.Message](1, OverflowStrategy.fail)
+        val out = Source.actorRef[Events.Message](10, OverflowStrategy.fail)
           .mapMaterializedValue((ref) => {
             chatActor ! Join(sender, ref)
           })
