@@ -1,8 +1,8 @@
 package chat
 
 import akka.actor.{ActorRef, Props, ActorSystem}
-import akka.stream.OverflowStrategy
-import akka.stream.scaladsl.{Source, Sink, Flow}
+import akka.stream.{ClosedShape, FlowShape, OverflowStrategy}
+import akka.stream.scaladsl.{GraphDSL, Source, Sink, Flow}
 import events.Events
 
 /**
@@ -17,7 +17,7 @@ object ChatHandler {
     new ChatHandler {
       // Flow => 1 input, 1 output   Source => 0 input, 1 output    Sink => 1 input, 0 output
       // 這邊使用 chatFlow 來表示使用者收到訊息、登入與登出的整個串流
-      def chatFlow(topic : String, sender : String) : Flow[String, Events.Message, Any] = {
+      /*def testFlow(topic : String, sender : String) : Flow[String, Events.Message, Any] = {
         val chatActor = system.actorOf(Props(classOf[ChatClient], topic))
 
         def remove = {
@@ -36,7 +36,27 @@ object ChatHandler {
           })
 
         Flow.fromSinkAndSource(in, out)
+      }*/
+
+      def chatFlow(topic : String, sender : String) : Flow[String, Events.Message, Any] = {
+        val chatActor = system.actorOf(Props(classOf[ChatClient], topic))
+
+        Flow.fromGraph(GraphDSL.create() { implicit b =>
+          val sink = b.add(Flow[String]
+            .map((msg) => {
+              ReceivedMessage(sender, msg)
+            })
+            .to(Sink.actorRef[ChatEvent](chatActor, Left(sender))))
+
+          val source = b.add(Source.actorRef[Events.Message](10, OverflowStrategy.fail)
+            .mapMaterializedValue((ref) => {
+              chatActor ! Join(sender, ref)
+            }))
+
+          FlowShape(sink.in, source.out)
+        })
       }
+
     }
   }
 
