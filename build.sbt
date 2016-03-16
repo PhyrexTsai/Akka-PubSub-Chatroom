@@ -13,6 +13,10 @@ libraryDependencies ++=
     "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
+    "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
+    "com.typesafe.akka" %% "akka-http-testkit" % akkaVersion % "test",
+    "org.scalactic" %% "scalactic" % "2.2.6",
+    "org.scalatest" %% "scalatest" % "2.2.6" % "test",
     "redis.clients" % "jedis" % "2.0.0"
   )
 
